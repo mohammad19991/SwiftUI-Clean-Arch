@@ -9,12 +9,8 @@ import SwiftUI
 import Combine
 
 struct ContentView: View {
-    @Environment(\.injected) var injected
+    @EnvironmentObject var appState: AppState
 
-    @State private var routingState = Routing()
-    private var routingBinding: Binding<Routing> {
-        $routingState.dispatched(to: injected.appState, \.routing.contentView)
-    }
     var body: some View {
         print("Rendering Content View")
         return ZStack {
@@ -26,24 +22,19 @@ struct ContentView: View {
                     .cornerRadius(10)
             })
         }
-        .onReceive(routingUpdate) { routingState = $0 }
-        .sheet(isPresented: routingBinding.showDetails, content: {
+        .sheet(isPresented: $appState.routing.contentView.showDetails, content: {
             DetailsView()
         })
     }
-    
+
     private func showDetails() {
-        injected.appState[\.routing.contentView.showDetails] = true
+        appState.routing.contentView.showDetails = true
     }
 }
 
 extension ContentView {
     struct Routing: Equatable {
         var showDetails = false
-    }
-
-    fileprivate var routingUpdate: AnyPublisher<Routing, Never> {
-        injected.appState.updates(for: \.routing.contentView)
     }
 }
 

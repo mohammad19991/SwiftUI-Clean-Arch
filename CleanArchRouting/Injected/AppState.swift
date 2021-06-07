@@ -5,10 +5,14 @@
 //  Created by Mohammad Alatrash on 6/6/21.
 //
 
-import Foundation
+import Combine
 
-struct AppState: Equatable {
-    var routing = ViewRouting()
+class AppState: ObservableObject, Equatable {
+    @Published var routing = ViewRouting()
+    
+    static func == (lhs: AppState, rhs: AppState) -> Bool {
+        lhs.routing == rhs.routing
+    }
 }
 
 extension AppState {

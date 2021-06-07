@@ -8,6 +8,10 @@
 import Combine
 import SwiftUI
 
+class Dependancy: ObservableObject {
+    var appState = AppState()
+}
+
 struct DIContainer: EnvironmentKey {
     let appState: Store<AppState>
 

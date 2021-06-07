@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct DetailsView: View {
+    @EnvironmentObject var appState: AppState
+
     var body: some View {
         print("Rendering Details View")
         return Text("Details View")

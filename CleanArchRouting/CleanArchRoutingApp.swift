@@ -9,11 +9,13 @@ import SwiftUI
 
 @main
 struct CleanArchRoutingApp: App {
+    @StateObject var appState = AppState()
+
     var body: some Scene {
-        WindowGroup {
-            NavigationView {
-                ContentView()
-            }
+        print("Rendering CleanArchRoutingApp")
+        return WindowGroup {
+            ContentView()
+                .environmentObject(appState)
         }
     }
 }
